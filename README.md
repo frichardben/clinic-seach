@@ -9,7 +9,33 @@ RESTful API endpoint to allow search in multiple clinic providers and display re
     Clinic Name
     State [ex: "CA" or "California"]
     Availability [ex: from:09:00, to:20:00]
-    
+
+### 📎 Documentation
+
+<details>
+ <summary><code>GET</code> <code><b>/</b></code> <code>(/api/v1/clinics/search)</code></summary>
+
+##### Parameters
+> | name        |  type      | data type      | description                   |
+> |-------------|------------|----------------|-------------------------------|
+> | `name`      |  optional  | string         | clinic name                   |
+> | `state`     |  optional  | string         | clinic state                  |
+> | `from / to` |  optional  | string         | clinic available              |
+
+##### Responses
+
+> | http code     | content-type                      | response                                                                             |
+> |---------------|-----------------------------------|--------------------------------------------------------------------------------------|
+> | `200`         | `application/json; charset=utf-8` | `[ {name: "UAB Hospital", state: "Alaska",availability: {from: "11:00", to: "20:00"} ]}`                                                     
+
+##### Example cURL
+
+> ```javascript
+>  curl -X GET -H "Content-Type: application/json" http://localhost:3333/api/v1/clinics/search?state=Alaska
+> ```
+</details>
+
+
 ## 📝 Technologies
 
 - [Express](https://expressjs.com/)
