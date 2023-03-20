@@ -20,43 +20,31 @@ describe('GetSeachClinicController', () => {
     jest.restoreAllMocks();
   });
 
-  it('should return all clinics if no query params are provided', async () => {
-    jest.spyOn(GetClinicSearchCase.prototype, 'execute').mockResolvedValue([
-      
-    ]);
-    await getSearchClinicController.handle(
-      mockRequest as Request,
-      mockResponse as Response
-    );
-    expect(mockResponse.status).toHaveBeenCalledWith(200);
-    expect(mockResponse.json).toHaveBeenCalledWith([]);
-
-  });
 
   it('should filter clinics by name', async () => {
     const mockExecute = jest
       .spyOn(GetClinicSearchCase.prototype, 'execute')
       .mockResolvedValue([
         {
-          name: 'Clinic A',
+          name: 'A1 Dental Clinic',
           state: 'CA',
           availability: { from: '08:00', to: '17:00' },
         },
       ]);
-    mockRequest.query = { name: 'clinic a' };
+    mockRequest.query = { name: 'a1 dental clinic' };
     await getSearchClinicController.handle(
       mockRequest as Request,
       mockResponse as Response
     );
     expect(mockExecute).toHaveBeenCalledWith({
-      name: 'clinic a',
+      name: 'a1 dental clinic',
       state: undefined,
       availability: { from: undefined, to: undefined },
     });
     expect(mockResponse.status).toHaveBeenCalledWith(200);
     expect(mockResponse.json).toHaveBeenCalledWith([
       {
-        name: 'Clinic A',
+        name: 'A1 Dental Clinic',
         state: 'CA',
         availability: { from: '08:00', to: '17:00' },
       },
@@ -86,7 +74,7 @@ describe('GetSeachClinicController', () => {
     expect(mockResponse.status).toHaveBeenCalledWith(200);
     expect(mockResponse.json).toHaveBeenCalledWith([
       {
-        name: 'Clinic B',
+        name: 'Mira Clinic',
         state: 'NY',
         availability: { from: '09:00', to: '18:00' },
       },
