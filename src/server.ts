@@ -1,9 +1,15 @@
 import { routes } from './routes';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
+import cors from 'cors';
+
+import { limiter } from './shared/middleware';
 
 const app = express();
 
+app.use(limiter);
+
+app.use(cors());
 app.use(express.json());
 
 app.use(routes);
