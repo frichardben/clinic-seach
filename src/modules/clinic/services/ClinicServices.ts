@@ -1,12 +1,16 @@
-import { api } from '@modules/clinic/api';
+import axios from 'axios';
 
 export class ClinicServices {
   static async get() {
-    const dentalClinics = await api
-      .get('dental-clinics.json')
+    const dentalClinics = await axios
+      .get(
+        'https://storage.googleapis.com/scratchpay-code-challenge/dental-clinics.json'
+      )
       .then((dentalResponse) => dentalResponse.data);
-    const vetClinics = await api
-      .get('vet-clinics.json')
+    const vetClinics = await axios
+      .get(
+        'https://storage.googleapis.com/scratchpay-code-challenge/vet-clinics.json'
+      )
       .then((vetResponse) => vetResponse.data);
 
     const result = await Promise.all([...dentalClinics, ...vetClinics]);
